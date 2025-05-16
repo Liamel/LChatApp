@@ -1,7 +1,7 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Card } from '@/components/ui/card';
 import { Id } from '@/convex/_generated/dataModel';
-import { Badge, BadgeCent, UserIcon } from 'lucide-react';
+import { UserIcon } from 'lucide-react';
 import Link from 'next/link';
 
 type Props = {

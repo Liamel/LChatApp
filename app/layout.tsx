@@ -3,7 +3,6 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import ConvexClientProvider from '@/providers/ConvexClientProvider';
 import { TooltipProvider } from '@/components/ui/tooltip';
-import { ClerkProvider } from '@clerk/nextjs';
 import { ThemeProvider } from '@/components/ui/theme/theme-provider';
 import { Toaster } from '@/components/ui/sonner';
 

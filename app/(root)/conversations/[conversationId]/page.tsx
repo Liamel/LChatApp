@@ -28,7 +28,7 @@ const ConversationPage = ({ params }: Props) => {
   const [removeFriendDialogOpen, setRemoveFriendDialogOpen] = React.useState(false);
   const [deleteGroupDialogOpen, setDeleteGroupDialogOpen] = React.useState(false);
   const [leaveGroupDialogOpen, setLeaveGroupDialogOpen] = React.useState(false);
-  const [callType, setCallType] = React.useState<'audio' | 'video' | null>(null);
+  // const [callType, setCallType] = React.useState<'audio' | 'video' | null>(null);
 
   return conversation === undefined ? (
     <div className="flex h-full w-full items-center justify-center">
@@ -85,10 +85,10 @@ const ConversationPage = ({ params }: Props) => {
         members={
           conversation.isGroup
             ? conversation.otherMembers
-              ? conversation.otherMembers
+              ? conversation.otherMembers.map(member => ({ ...member, id: member._id }))
               : []
             : conversation.otherMember
-              ? [conversation.otherMember]
+              ? [{ ...conversation.otherMember, id: conversation.otherMember._id }]
               : []
         }
       />

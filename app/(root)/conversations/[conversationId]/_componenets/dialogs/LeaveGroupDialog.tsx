@@ -1,5 +1,4 @@
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from '@/components/ui/alert-dialog';
-import { Dialog } from '@/components/ui/dialog';
 import { api } from '@/convex/_generated/api';
 import { Id } from '@/convex/_generated/dataModel';
 import { useMutationState } from '@/hooks/useMutationState';
@@ -21,7 +20,7 @@ export const LeaveGroupDialog = ({ open, setOpen, conversationId }: Props) => {
       conversationId: conversationId,
     }).then(() => {
       toast.success('Group left');
-    }).catch((error:any) => {
+    }).catch((error:unknown) => {
       toast.error(error instanceof ConvexError ? error.data : 'Failed to leave group');
     });
   };

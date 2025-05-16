@@ -15,8 +15,10 @@ import { Tooltip } from "@/components/ui/tooltip";
 type Props = {
     members: {
         lastSeenMessageId?: Id<"messages"> | undefined;
-        username?: string; 
-        [key: string]: any;
+        username?: string;
+        id: Id<"users">;
+        imageUrl?: string;
+        email?: string;
     }[]
 }
 

@@ -10,10 +10,10 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'sonner';
 import { ConvexError } from 'convex/values';
-import { useRef } from 'react';
+import {  } from 'react';
 import { Form, FormField, FormItem, FormControl, FormMessage } from '@/components/ui/form';
 import  TextareaAutosize  from 'react-textarea-autosize';
-import { SendHorizonal, SendIcon } from 'lucide-react';
+import { SendHorizonal } from 'lucide-react';
 
 
 const chatMessageSchema = z.object({
@@ -23,9 +23,8 @@ const chatMessageSchema = z.object({
 type ChatMessageType = z.infer<typeof chatMessageSchema>;
 
 export const ChatInput = () => {
-  const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
 
-  const handleInputChange = (event: any) => {
+  const handleInputChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     const {value,selectionStart} = event.target;
     if (selectionStart !== null ) {
         form.setValue('content',value);
@@ -75,7 +74,7 @@ export const ChatInput = () => {
                                 await form.handleSubmit(handleSubmit)();
                             }
                         }}
-                        {...field} onChange= {handleInputChange} onClick = {handleInputChange}
+                        {...field} onChange={handleInputChange}
                         placeholder="Type a message" 
                         className="min-h-full w-full resize-none outline-0 border-0 bg-card text-card-foreground placeholder:text-muted-foreground p-1.5"
                         />

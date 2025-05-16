@@ -9,9 +9,8 @@ import { useQuery } from 'convex/react';
 import { Loader2 } from 'lucide-react';
 import Request from './_components/Request';
 
-type Props = React.PropsWithChildren<{}>;
 
-const FriendsPage = ({}: Props) => {
+const FriendsPage = () => {
   const requests = useQuery(api.requests.get);
 
   return (
