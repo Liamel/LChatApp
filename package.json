@@ -45,6 +45,7 @@
     "mini-css-extract-plugin": "^2.9.2",
     "tailwindcss": "^4",
     "tw-animate-css": "^1.2.8",
-    "typescript": "^5"
+    "typescript": "^5",
+    "webpack": "^5.99.8"
   }
 }
