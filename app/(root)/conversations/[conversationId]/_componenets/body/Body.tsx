@@ -6,7 +6,7 @@ import { useConversation } from "@/hooks/useConversation";
 import { useQuery } from "convex/react";
 import Message from "./Message";
 import { useMutationState } from "@/hooks/useMutationState";
-import { useEffect } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { TooltipContent, TooltipProvider } from "@/components/ui/tooltip";
 import { TooltipTrigger } from "@/components/ui/tooltip";
 import { Tooltip } from "@/components/ui/tooltip";
@@ -24,25 +24,29 @@ type Props = {
 
 export const Body = ({members}: Props) => {
     const { conversationId } = useConversation();
+    const lastMarkedMessageRef = useRef<Id<"messages"> | null>(null);
 
     const messages = useQuery(api.messages.get, {
         id: conversationId as Id<"conversations">,
     });
 
-    console.log('members', members);
-
     const {mutate: markRead} = useMutationState(api.conversation.markRead);
 
     useEffect(() => {
         if (messages && messages.length > 0) {
-            markRead({
-                conversationId: conversationId as Id<"conversations">,
-                messageId: messages[0]._id,
-            });
+            const latestMessage = messages[0];
+            // Only mark as read if it's a new message
+            if (latestMessage._id !== lastMarkedMessageRef.current) {
+                lastMarkedMessageRef.current = latestMessage._id;
+                markRead({
+                    conversationId: conversationId as Id<"conversations">,
+                    messageId: latestMessage._id,
+                });
+            }
         }
     }, [messages, conversationId, markRead]);
 
-    const getSeenMessage = (messageId: Id<"messages">) => {
+    const getSeenMessage = useMemo(() => (messageId: Id<"messages">) => {
         const seenUsers = members
             .filter(member => member.lastSeenMessageId === messageId)
             .map(member => member.username?.split(' ')[0])
@@ -50,7 +54,7 @@ export const Body = ({members}: Props) => {
 
         if (seenUsers.length === 0) return undefined;
         return formatBySeen(seenUsers);
-    }
+    }, [members]);
 
     const formatBySeen = (names: string[]) => {
         switch (names.length) {
@@ -76,7 +80,7 @@ export const Body = ({members}: Props) => {
         }
     }
     return (
-        <div className='flex flex-1 w-full overscroll-y-scroll flex-col-reverse gap-2 p-3 scrollbar-hide'>
+        <div className='flex-1 w-full overflow-y-auto flex flex-col-reverse gap-2 p-3 scrollbar-hide'>
             {messages?.map(({_id, isCurrentUser, senderImage, senderName, content, type, _creationTime}, index) => {
                 const lastByUser = messages[index - 1]?.senderId === messages[index]?.senderId;
 

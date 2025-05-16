@@ -192,14 +192,16 @@ export const markRead = mutation({
           q.eq('memberId', currentUser._id).eq('conversationId', args.conversationId)
         )
         .unique();
+
       if (!membership) {
         throw new ConvexError('you are not a member of this conversation');
       }
-  
-      const lastMessage = await ctx.db.get(args.messageId);
 
-      await ctx.db.patch(membership._id, {
-        lastSeenMessageId: lastMessage ? lastMessage._id : undefined,
-      });
+      // Only update if the new message is different from the current last seen message
+      if (membership.lastSeenMessageId !== args.messageId) {
+        await ctx.db.patch(membership._id, {
+          lastSeenMessageId: args.messageId,
+        });
+      }
     },
   });
