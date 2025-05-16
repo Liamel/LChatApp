@@ -25,7 +25,6 @@ import { api } from '@/convex/_generated/api';
 import { toast } from 'sonner';
 import { ConvexError } from 'convex/values';
 
-
 const addFriendFormSchema = z.object({
   email: z
     .string()
@@ -36,8 +35,7 @@ const addFriendFormSchema = z.object({
 type AddFriendFormSchema = z.infer<typeof addFriendFormSchema>;
 
 const AddFriendDialog = () => {
-
-    const { pending, mutate: createRequest } = useMutationState(api.request.create);
+  const { pending, mutate: createRequest } = useMutationState(api.request.create);
 
   const form = useForm<AddFriendFormSchema>({
     resolver: zodResolver(addFriendFormSchema),
@@ -49,24 +47,24 @@ const AddFriendDialog = () => {
   const handleSubmit = async (data: AddFriendFormSchema) => {
     await createRequest({
       email: data.email,
-    }).then(()=> {
+    })
+      .then(() => {
         toast.success('Request sent');
         form.reset();
-    }).catch((err)=> {
+      })
+      .catch(err => {
         console.log('Error details:', err);
         toast.error(err instanceof ConvexError ? err.data : 'Something went wrong');
-    })
+      });
   };
 
   return (
     <Dialog>
       <Tooltip>
         <TooltipTrigger>
-          <Button size="icon" variant="outline">
-            <DialogTrigger>
-              <UserPlusIcon />
-            </DialogTrigger>
-          </Button>
+          <DialogTrigger asChild>
+            <UserPlusIcon />
+          </DialogTrigger>
         </TooltipTrigger>
         <TooltipContent>Add Friend</TooltipContent>
       </Tooltip>
@@ -91,11 +89,10 @@ const AddFriendDialog = () => {
               )}
             />
             <DialogFooter>
-                <Button disabled={pending} type="submit" className="w-full">
-                    {pending ? 'Sending...' : 'Add'}
-                </Button>
+              <Button disabled={pending} type="submit" className="w-full">
+                {pending ? 'Sending...' : 'Add'}
+              </Button>
             </DialogFooter>
-            
           </form>
         </Form>
       </DialogContent>

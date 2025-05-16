@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import DesktopNav from './nav/DesktopNav';
 import MobileNav from './nav/MobileNav';
