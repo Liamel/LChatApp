@@ -30,6 +30,7 @@
     "react-hook-form": "^7.56.3",
     "react-textarea-autosize": "^8.5.9",
     "sonner": "^2.0.3",
+    "svix": "^1.65.0",
     "tailwind-merge": "^3.2.0",
     "zod": "^3.24.4"
   },
