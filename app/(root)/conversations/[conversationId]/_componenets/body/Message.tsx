@@ -2,10 +2,12 @@ import React from 'react';
 import { format } from 'date-fns';
 import { cn } from '@/lib/utils';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import ImagePreview from './ImagePreview';
+import FilePreview from './FilePreview';
 
 type Props = {
   fromCurrentUser: boolean;
-  content: string;
+  content: string[];
   senderImage: string;
   senderName: string;
   lastByUser: boolean;
@@ -43,8 +45,8 @@ export const Message = ({
             'rounded-bl-none': !fromCurrentUser && !lastByUser,
            })}>
             {type === 'text' ? <p className='whitespace-pre-wrap break-words text-wrap break-all'>
-                {content}
-            </p> : null}
+                {content[0]}
+            </p> : type === 'image' ? <ImagePreview urls={content}/> : type === 'file' ? <FilePreview url={content[0]}/> : null}
             <p className={cn('text-xs flex w-full y-1', {
                 'text-primary-foreground justify-end': fromCurrentUser,
                 'text-secondary-foreground justify-start': !fromCurrentUser,

@@ -90,7 +90,7 @@ export const Body = ({members}: Props) => {
                     <Message
                         key={_id}
                         fromCurrentUser={isCurrentUser}
-                        content={content[0]}
+                        content={content}
                         senderImage={senderImage}
                         senderName={senderName}
                         lastByUser={lastByUser}

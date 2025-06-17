@@ -115,6 +115,10 @@ const getMessageContent = (type: string, content: string) => {
   switch (type) {
     case 'text':
       return content;
+    case 'image':
+      return ['image'];
+    case 'file':
+      return ['file'];
     default:
       return 'Non-text message';
   }

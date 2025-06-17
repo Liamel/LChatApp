@@ -4,6 +4,9 @@ import type { WebpackPluginInstance } from 'webpack';
 
 const nextConfig: NextConfig = {
   /* config options here */
+  images: {
+    domains: ['img.clerk.com', 'utfs.io', '01x2ksgzit.ufs.sh'],
+  },
   async redirects() {
     return [
       {
