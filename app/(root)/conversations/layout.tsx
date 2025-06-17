@@ -30,7 +30,9 @@ const ConversationsLayout = ({ children }: Props) => {
                   id={conversation.conversation._id}
                   name={conversation.conversation.name || ''}
                   lastMessageSender={conversation.lastMessage?.sender}
-                  lastMessageContent={conversation.lastMessage?.content}
+                  lastMessageContent={Array.isArray(conversation.lastMessage?.content) 
+                    ? conversation.lastMessage.content[0] 
+                    : conversation.lastMessage?.content}
                   unseenCount={conversation.unseenCount}
                 />
               ) : (
@@ -41,7 +43,9 @@ const ConversationsLayout = ({ children }: Props) => {
                   username={conversation.otherMember?.username || ''}
                   email={conversation.otherMember?.email || ''}
                   lastMessageSender={conversation.lastMessage?.sender}
-                  lastMessageContent={conversation.lastMessage?.content}
+                  lastMessageContent={Array.isArray(conversation.lastMessage?.content) 
+                    ? conversation.lastMessage.content[0] 
+                    : conversation.lastMessage?.content}
                   unseenCount={conversation.unseenCount}
                 />
               );
