@@ -4,6 +4,8 @@ import { cn } from '@/lib/utils';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import ImagePreview from './ImagePreview';
 import FilePreview from './FilePreview';
+import {  PhoneIcon } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
 
 type Props = {
   fromCurrentUser: boolean;
@@ -46,7 +48,11 @@ export const Message = ({
            })}>
             {type === 'text' ? <p className='whitespace-pre-wrap break-words text-wrap break-all'>
                 {content[0]}
-            </p> : type === 'image' ? <ImagePreview urls={content}/> : type === 'file' ? <FilePreview url={content[0]}/> : null}
+            </p> : type === 'image' ? <ImagePreview urls={content}/> : type === 'file' ? <FilePreview url={content[0]}/> : type === 'call' ?
+            <Badge variant="secondary" className='text-xs'>
+                <PhoneIcon className="w-4 h-4" />
+                Call
+            </Badge> : null}
             <p className={cn('text-xs flex w-full y-1', {
                 'text-primary-foreground justify-end': fromCurrentUser,
                 'text-secondary-foreground justify-start': !fromCurrentUser,

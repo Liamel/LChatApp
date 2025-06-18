@@ -63,38 +63,40 @@ const UploadFileDialog = ({open, toggle, type}: Props) => {
           {type === 'image' ? <ImageIcon className="w-4 h-4" /> : <FileIcon className="w-4 h-4" />}
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
-        <DialogHeader>
-          <DialogTitle>Upload {type === 'image' ? 'Image' : 'File'}</DialogTitle>
-        </DialogHeader>
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8">
-            <FormField
-              control={form.control}
-              name="files"
-              render= {() => {
-                return <FormItem>
-                  <FormControl>
-                    <div className="py-4">
-                      <Uploader type = {type}
-                      onChange= {(urls) => {
-                        const newFiles = [...files, ...urls];
-                        form.setValue('files', newFiles, { shouldValidate: true });
-                      }}>
-                      </Uploader>
-                    </div>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              }}
-            />
-            <DialogFooter>
-              <Button type="submit" disabled={pending}>
-                {pending ? 'Uploading...' : 'Send'}
-              </Button>
-            </DialogFooter>
-          </form>
-        </Form>
+      <DialogContent className="fixed inset-0 z-50 max-h-[50vh] flex items-center justify-center p-4 sm:p-6 md:p-8">
+        <div className="w-full max-w-[425px] max-h-[50vh] overflow-y-auto bg-background rounded-lg shadow-lg">
+          <DialogHeader>
+            <DialogTitle>Upload {type === 'image' ? 'Image' : 'File'}</DialogTitle>
+          </DialogHeader>
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8">
+              <FormField
+                control={form.control}
+                name="files"
+                render= {() => {
+                  return <FormItem>
+                    <FormControl>
+                      <div className="py-4">
+                        <Uploader type = {type}
+                        onChange= {(urls) => {
+                          const newFiles = [...files, ...urls];
+                          form.setValue('files', newFiles, { shouldValidate: true });
+                        }}>
+                        </Uploader>
+                      </div>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                }}
+              />
+              <DialogFooter>
+                <Button type="submit" disabled={pending}>
+                  {pending ? 'Uploading...' : 'Send'}
+                </Button>
+              </DialogFooter>
+            </form>
+          </Form>
+        </div>
       </DialogContent>
     </Dialog>
 }

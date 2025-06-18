@@ -11,6 +11,8 @@
   "dependencies": {
     "@clerk/nextjs": "^6.18.5",
     "@hookform/resolvers": "^5.0.1",
+    "@livekit/components-react": "^2.9.9",
+    "@livekit/components-styles": "^1.1.6",
     "@radix-ui/react-alert-dialog": "^1.1.13",
     "@radix-ui/react-avatar": "^1.1.9",
     "@radix-ui/react-dialog": "^1.1.13",
@@ -25,6 +27,7 @@
     "convex": "^1.24.0",
     "date-fns": "^4.1.0",
     "emoji-picker-react": "^4.12.2",
+    "livekit-server-sdk": "^2.13.0",
     "lucide-react": "^0.506.0",
     "next": "15.3.1",
     "next-themes": "^0.4.6",

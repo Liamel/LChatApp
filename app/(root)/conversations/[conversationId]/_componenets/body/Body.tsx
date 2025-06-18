@@ -6,10 +6,11 @@ import { useConversation } from "@/hooks/useConversation";
 import { useQuery } from "convex/react";
 import Message from "./Message";
 import { useMutationState } from "@/hooks/useMutationState";
-import { useEffect, useMemo, useRef } from "react";
+import { Dispatch, SetStateAction, useEffect, useMemo, useRef } from "react";
 import { TooltipContent, TooltipProvider } from "@/components/ui/tooltip";
 import { TooltipTrigger } from "@/components/ui/tooltip";
 import { Tooltip } from "@/components/ui/tooltip";
+import CallRoom from "./CallRoom";
 
 
 type Props = {
@@ -20,9 +21,11 @@ type Props = {
         imageUrl?: string;
         email?: string;
     }[]
+    callType: 'audio' | 'video' | null;
+    setCallType: Dispatch<SetStateAction<'audio' | 'video' | null>>;
 }
 
-export const Body = ({members}: Props) => {
+export const Body = ({members, callType, setCallType}: Props) => {
     const { conversationId } = useConversation();
     const lastMarkedMessageRef = useRef<Id<"messages"> | null>(null);
 
@@ -81,7 +84,7 @@ export const Body = ({members}: Props) => {
     }
     return (
         <div className='flex-1 w-full overflow-y-auto flex flex-col-reverse gap-2 p-3 scrollbar-hide'>
-            {messages?.map(({_id, isCurrentUser, senderImage, senderName, content, type, _creationTime}, index) => {
+            {!callType ? messages?.map(({_id, isCurrentUser, senderImage, senderName, content, type, _creationTime}, index) => {
                 const lastByUser = messages[index - 1]?.senderId === messages[index]?.senderId;
 
                 const seenMessage = isCurrentUser ? getSeenMessage(_id) : undefined;
@@ -99,7 +102,7 @@ export const Body = ({members}: Props) => {
                         type={type}
                     />
                 )
-            })}
+            }): <CallRoom callType={callType} setCallType={setCallType} video={callType === 'video'} audio={callType === 'audio' || callType === 'video'} handleDisconnect={() => setCallType(null)} />}
         </div>
     )
 }

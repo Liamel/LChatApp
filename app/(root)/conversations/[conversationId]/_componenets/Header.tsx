@@ -3,9 +3,9 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { DropdownMenu, DropdownMenuItem, DropdownMenuContent, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { cn } from '@/lib/utils';
-import { ArrowLeftIcon, EllipsisIcon } from 'lucide-react';
+import { ArrowLeftIcon, EllipsisIcon, PhoneIcon, VideoIcon } from 'lucide-react';
 import Link from 'next/link';
-import React from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 
 type Props = {
   imageUrl: string;
@@ -16,9 +16,10 @@ type Props = {
     onClick: () => void;
 
   }[];
+  setCallType: Dispatch<SetStateAction<"audio" | "video" | null>>;
 };
 
-export const Header = ({ imageUrl, name, options }: Props) => {
+export const Header = ({ imageUrl, name, options, setCallType }: Props) => {
   return (
     <Card className="flex flex-row rounded-md p-2 justify-between items-center">
       <div className="flex  items-center gap-2">
@@ -32,6 +33,12 @@ export const Header = ({ imageUrl, name, options }: Props) => {
         <h2 className="text-lg font-semibold">{name}</h2>
       </div>
       <div className='flex gap-2'>
+        <Button variant = 'secondary' size = 'icon' onClick = {() => setCallType('audio')}>
+          <PhoneIcon className='w-4 h-4' />
+        </Button>
+        <Button variant = 'secondary' size = 'icon' onClick = {() => setCallType('video')}>
+          <VideoIcon className='w-4 h-4' />
+        </Button>
         { 
           options ? (<DropdownMenu>
             <DropdownMenuTrigger asChild>

@@ -28,7 +28,7 @@ const ConversationPage = ({ params }: Props) => {
   const [removeFriendDialogOpen, setRemoveFriendDialogOpen] = React.useState(false);
   const [deleteGroupDialogOpen, setDeleteGroupDialogOpen] = React.useState(false);
   const [leaveGroupDialogOpen, setLeaveGroupDialogOpen] = React.useState(false);
-  // const [callType, setCallType] = React.useState<'audio' | 'video' | null>(null);
+  const [callType, setCallType] = React.useState<'audio' | 'video' | null>(null);
 
   return conversation === undefined ? (
     <div className="flex h-full w-full items-center justify-center">
@@ -56,6 +56,7 @@ const ConversationPage = ({ params }: Props) => {
         conversationId={conversationId}
       />
       <Header
+        setCallType={setCallType}
         imageUrl={conversation.isGroup ? '' : conversation.otherMember?.imageUrl || ''}
         name={(conversation.isGroup ? conversation.name : conversation.otherMember?.username) || ''}
         options={
@@ -91,6 +92,8 @@ const ConversationPage = ({ params }: Props) => {
               ? [{ ...conversation.otherMember, id: conversation.otherMember._id }]
               : []
         }
+        callType={callType}
+        setCallType={setCallType}
       />
       <ChatInput />
     </ConversationContainer>
