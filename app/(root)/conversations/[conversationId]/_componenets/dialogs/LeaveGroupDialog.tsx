@@ -36,7 +36,7 @@ export const LeaveGroupDialog = ({ open, setOpen, conversationId }: Props) => {
       <AlertDialogFooter>
         <AlertDialogCancel>Cancel</AlertDialogCancel>
         <AlertDialogAction onClick={handleLeaveGroup} disabled={pending}>
-          {pending ? 'Leaving...' : 'Leave'}
+          {pending ? 'Leaving...' : 'Leavee'}
         </AlertDialogAction>
       </AlertDialogFooter>
     </AlertDialogContent>
